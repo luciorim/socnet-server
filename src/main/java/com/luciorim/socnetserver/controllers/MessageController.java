@@ -1,6 +1,7 @@
 package com.luciorim.socnetserver.controllers;
 
-import com.luciorim.socnetserver.dtos.MessageDto;
+import com.luciorim.socnetserver.dtos.RequestMessageDto;
+import com.luciorim.socnetserver.dtos.ResponseMessageDto;
 import com.luciorim.socnetserver.services.MessageService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +19,13 @@ public class MessageController {
     private final MessageService messageService;
 
     @GetMapping
-    public ResponseEntity<List<MessageDto>> getAllMessages(){
+    public ResponseEntity<List<ResponseMessageDto>> getAllMessages(){
         return ResponseEntity.ok(messageService.getAllMessages());
     }
 
     @PostMapping
-    public ResponseEntity<Void> createMessage(@Valid @RequestBody MessageDto messageDto){
-        messageService.createMessage(messageDto);
+    public ResponseEntity<Void> createMessage(@Valid @RequestBody RequestMessageDto responseMessageDto){
+        messageService.createMessage(responseMessageDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -35,8 +36,8 @@ public class MessageController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateMessage(@PathVariable Long id, @Valid @RequestBody MessageDto messageDto){
-        messageService.updateMessage(id, messageDto);
+    public ResponseEntity<Void> updateMessage(@PathVariable Long id, @Valid @RequestBody RequestMessageDto requestMessageDto){
+        messageService.updateMessage(id, requestMessageDto);
         return ResponseEntity.ok().build();
     }
 
